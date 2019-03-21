@@ -1,0 +1,19 @@
+- module: haproxy
+  # All logs
+  log:
+    enabled: {{ item.enabled | d('true') }}
+
+    # Set which input to use between syslog (default) or file.
+{% if item.paths is defined %}
+    var.input: "file"
+{% else %}
+    #var.input:
+{% endif %}
+
+    # Set custom paths for the log files. If left empty,
+    # Filebeat will choose the paths depending on your OS.
+{% if item.paths is defined %}
+    var.paths: {{ item.paths | to_json }}
+{% else %}
+    #var.paths:
+{% endif %}

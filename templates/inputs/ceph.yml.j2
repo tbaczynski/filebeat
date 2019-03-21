@@ -1,0 +1,48 @@
+---
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/ceph/ceph-osd.*.log'
+  ignore_older: 1h
+  fields:
+    ceph: osd
+  fields_under_root: true
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/ceph/ceph.log'
+  ignore_older: 1h
+  fields:
+    ceph: ceph
+  fields_under_root: true
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/ceph/ceph.audit.log'
+  ignore_older: 1h
+  fields:
+    ceph: audit
+  fields_under_root: true
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/ceph/ceph-mgr.*.log'
+  ignore_older: 1h
+  fields:
+    ceph: mgr
+  fields_under_root: true
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/ceph/ceph-mon.*.log'
+  ignore_older: 1h
+  fields:
+    ceph: mon
+  fields_under_root: true
+
+...

@@ -1,0 +1,47 @@
+---
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/nova/*.log'
+  ignore_older: 1h
+  fields:
+    openstack.component: nova
+  fields_under_root: true
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/neutron/*.log'
+  ignore_older: 1h
+  fields:
+    openstack.component: neutron
+  fields_under_root: true
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/glance/*.log'
+  ignore_older: 1h
+  fields:
+    openstack.component: glance
+  fields_under_root: true
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/cinder/*.log'
+  ignore_older: 1h
+  fields:
+    openstack.component: cinder
+  fields_under_root: true
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/keystone/*.log'
+  ignore_older: 1h
+  fields:
+    openstack.component: keystone
+  fields_under_root: true
+

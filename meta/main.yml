@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: Tomasz <bul> Baczynski, Michal <warf> Luczak
+  description: Filebeat
+  company: BulIT for DreamHost
+
+  license: Proprietary
+
+  min_ansible_version: 2.7
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+
+  galaxy_tags:
+    - ubuntu
+    - filebeat
+
+dependencies: []

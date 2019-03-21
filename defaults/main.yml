@@ -1,0 +1,36 @@
+---
+es_apt_key: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+es_apt_url: "deb https://artifacts.elastic.co/packages/{{ es_major_version }}/apt stable main"
+es_major_version: 6.x
+es_filebeat_version: '6.6.*'
+es_enable_pinning: true
+es_pinning_pkgs:
+  - { name: 'filebeat', version: '{{ es_filebeat_version }}', priority: 1000 }
+
+es_filebeat_logstash_hosts:
+  - localhost
+es_filebeat_logstash_port: 5044
+
+es_filebeat_inputs:
+  - name: filebeat
+#  - name: ceph
+#  - name: openstack
+#  - name: libvirt
+#  - name: impstats
+
+es_filebeat_modules: []
+#  - system
+#  - elasticsearch
+#  - kafka
+#  - logstash
+#  - haproxy
+#  - kibana
+es_filebeat_modules_cli: []
+es_filebeat_create_webbeats_template: false
+
+es_filebeat_monitoring: false
+es_filebeat_docker: false
+es_filebeat_main_tags: []
+
+es_filebeat_pause_sec: 1
+es_filebeat_pause_min: 0

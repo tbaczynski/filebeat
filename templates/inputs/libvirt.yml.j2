@@ -1,0 +1,15 @@
+---
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/libvirt/libvirtd.log'
+  - '/var/log/libvirt/shutdownlog.log'
+  - '/var/log/libvirt/virtlogd.log'
+  - '/var/log/libvirt/qemu/*.log'
+  ignore_older: 1h
+  fields:
+    libvirt: true
+  fields_under_root: true
+
+...

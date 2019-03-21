@@ -1,0 +1,109 @@
+---
+- name: Install prereq. pkg
+  apt:
+    name:
+      - apt-transport-https
+    state: present
+  tags: [ packages, filebeat ]
+
+- name: Add ElasticSearch repo key
+  apt_key:
+    url: "{{ es_apt_key }}"
+    state: present
+  tags: [ repository, filebeat ]
+
+- name: Add ElasticSearch repository
+  apt_repository:
+    repo: "{{ es_apt_url }}"
+    state: present
+  tags: [ repository, filebeat ]
+
+- name: Filebeat | Apt pinning for pkgs
+  template:
+    src: "etc/apt/pin-package.j2"
+    dest: "/etc/apt/preferences.d/{{ item.name }}"
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ es_pinning_pkgs }}"
+  when:
+    - es_pinning_pkgs is defined
+    - es_enable_pinning
+  tags: [ repository, filebeat, apt ]
+
+- name: Install Filebeat package
+  apt:
+    name: filebeat
+    state: present
+  tags: [ packages, filebeat, apt ]
+
+- name: Create Filebeat inputs.d directory
+  file:
+    path: /etc/filebeat/inputs.d
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+  tags: [ config, filebeat ]
+
+- name: Create main Filebeat config
+  template:
+    src: "filebeat.yml.j2"
+    dest: "/etc/filebeat/filebeat.yml"
+    owner: root
+    group: root
+    mode: 0600
+  notify: restart filebeat
+  tags: [ config, filebeat ]
+
+- name: Configure Filebeats inputs from templates
+  template:
+    src: "inputs/{{ item.name }}.yml.j2"
+    dest: "/etc/filebeat/inputs.d/{{ item.name }}.yml"
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ es_filebeat_inputs }}"
+  when: item.name
+  tags: [ config, filebeat ]
+
+- name: Configure Filebeats modules from templates
+  template:
+    src: "modules/{{ item.name }}.yml.j2"
+    dest: "/etc/filebeat/modules.d/{{ item.name }}.yml"
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ es_filebeat_modules }}"
+  when: item.name
+  tags: [ config, filebeat ]
+
+- name: Filebeats enable modules from cli  # noqa 305
+  shell: filebeat modules enable {{ item.name }}
+  args:
+    creates: "/etc/filebeat/modules.d/{{ item.name }}.yml"
+  loop: "{{ es_filebeat_modules_cli }}"
+  when: item.enabled
+  tags: [ config, filebeat ]
+
+- name: Filebeats disable modules from cli  # noqa 305
+  shell: filebeat modules disable {{ item.name|quote }}
+  args:
+    creates: "/etc/filebeat/modules.d/{{ item.name }}.yml.disabled"
+  loop: "{{ es_filebeat_modules_cli }}"
+  when: not item.enabled
+  tags: [ config, filebeat ]
+
+- name: Enable and start Filebeat service
+  service:
+    name: filebeat
+    enabled: yes
+    state: started
+  tags: [ filebeat ]
+
+- name: Pause before next server
+  pause:
+    seconds: "{{ es_filebeat_pause_sec }}"
+    minutes: "{{ es_filebeat_pause_min }}"
+  tags:
+    - filebeat

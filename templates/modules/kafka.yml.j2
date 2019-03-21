@@ -1,0 +1,9 @@
+- module: kafka
+  log:
+    enabled: {{ item.enabled | d('true') }}
+    var.paths:
+      - "/opt/kafka/logs/controller.log"
+      - "/opt/kafka/logs/server.log"
+      - "/opt/kafka/logs/state-change.log"
+      - "/opt/kafka/logs/kafka-*.log"
+

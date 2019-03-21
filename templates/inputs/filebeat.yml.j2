@@ -1,0 +1,9 @@
+---
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/filebeat/filebeat'
+  ignore_older: 1h
+
+...

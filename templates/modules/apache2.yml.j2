@@ -1,0 +1,24 @@
+- module: apache2
+  # Access logs
+  access:
+    enabled: {{ item.enabled | d('true') }}
+
+    # Set custom paths for the log files. If left empty,
+    # Filebeat will choose the paths depending on your OS.
+{% if item.access_paths is defined %}
+    var.paths: {{ item.access_paths | to_json }}
+{% else %}
+    #var.paths:
+{% endif %}
+
+  # Error logs
+  error:
+    enabled: {{ item.enabled | d('true') }}
+
+    # Set custom paths for the log files. If left empty,
+    # Filebeat will choose the paths depending on your OS.
+{% if item.error_paths is defined %}
+    var.paths: {{ item.error_paths | to_json }}
+{% else %}
+    #var.paths:
+{% endif %}

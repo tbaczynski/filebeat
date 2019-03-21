@@ -1,0 +1,19 @@
+- module: logstash
+  # All logs
+  log:
+    enabled: {{ item.enabled | d('true') }}
+
+    # Set custom paths for the log files. If left empty,
+    # Filebeat will choose the paths depending on your OS.
+{% if item.paths is defined %}
+    var.paths: {{ item.paths }}
+{% else %}
+    #var.paths:
+{% endif %}
+  # Slow logs
+  slowlog:
+   enabled: {{ item.enabled | d('true') }}
+    # Set custom paths for the log files. If left empty,
+    # Filebeat will choose the paths depending on your OS.
+    #var.paths:
+
