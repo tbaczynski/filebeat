@@ -27,6 +27,7 @@ see in defaults/main.yaml
 
 If set monitoring to ES, you need to set up `es_elastic_coordination` variable.
 
+
 Dependencies
 ------------
 
