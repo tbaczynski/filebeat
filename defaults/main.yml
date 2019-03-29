@@ -26,6 +26,8 @@ es_filebeat_modules: []
 #  - haproxy
 #  - kibana
 es_filebeat_modules_cli: []
+# - name: system
+#   enabled: true
 es_filebeat_create_webbeats_template: false
 
 es_filebeat_monitoring: false
