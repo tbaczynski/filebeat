@@ -65,6 +65,7 @@
     mode: 0644
   loop: "{{ es_filebeat_inputs }}"
   when: item.name
+  notify: restart filebeat
   tags: [ config, filebeat ]
 
 - name: Configure Filebeats modules from templates
@@ -76,6 +77,7 @@
     mode: 0644
   loop: "{{ es_filebeat_modules }}"
   when: item.name
+  notify: restart filebeat
   tags: [ config, filebeat ]
 
 - name: Filebeats enable modules from cli  # noqa 305
