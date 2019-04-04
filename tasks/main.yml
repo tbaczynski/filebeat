@@ -45,6 +45,7 @@
   apt:
     name: "filebeat={{ es_filebeat_version }}"
     state: present
+  notify: restart filebeat
   tags: [ packages, filebeat, apt ]
 
 - name: Create Filebeat inputs.d directory
