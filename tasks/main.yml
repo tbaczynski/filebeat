@@ -26,14 +26,24 @@
     group: root
     mode: 0644
   loop: "{{ es_pinning_pkgs }}"
+  register: apt_pinning_status
   when:
     - es_pinning_pkgs is defined
     - es_enable_pinning
   tags: [ repository, filebeat, apt ]
 
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  when:
+    - es_pinning_pkgs is defined
+    - es_enable_pinning
+    - apt_pinning_status is changed
+  tags: [ packages, filebeat, apt ]
+
 - name: Install Filebeat package
   apt:
-    name: filebeat
+    name: "filebeat={{ es_filebeat_version }}"
     state: present
   tags: [ packages, filebeat, apt ]
 
