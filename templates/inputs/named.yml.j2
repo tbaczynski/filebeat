@@ -1,0 +1,28 @@
+---
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/named/general.log'
+  ignore_older: 1h
+  fields:
+    named.type: general
+  fields_under_root: true
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/named/lame.log'
+  ignore_older: 1h
+  fields:
+    named.type: lame
+  fields_under_root: true
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/named/query.log'
+  ignore_older: 1h
+  fields:
+    named.type: query
+  fields_under_root: true
+
