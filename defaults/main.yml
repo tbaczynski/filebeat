@@ -36,3 +36,7 @@ es_filebeat_main_tags: []
 
 es_filebeat_pause_sec: 1
 es_filebeat_pause_min: 0
+
+## APT
+apt_force_apt_get: yes
+apt_install_recommends: no
