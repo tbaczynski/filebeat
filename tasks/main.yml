@@ -4,6 +4,8 @@
     name:
       - apt-transport-https
     state: present
+    force_apt_get: "{{ apt_force_apt_get }}"
+    install_recommends: "{{ apt_install_recommends }}"
   tags: [ packages, filebeat ]
 
 - name: Add ElasticSearch repo key
