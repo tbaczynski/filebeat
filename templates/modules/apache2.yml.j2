@@ -10,6 +10,9 @@
 {% else %}
     #var.paths:
 {% endif %}
+{% if item.exclude_lines is defined %}
+    var.exclude_lines: {{ item.exclude_lines | to_json }}
+{% endif %}
 
   # Error logs
   error:
@@ -21,4 +24,7 @@
     var.paths: {{ item.error_paths | to_json }}
 {% else %}
     #var.paths:
+{% endif %}
+{% if item.exclude_lines is defined %}
+    var.exclude_lines: {{ item.exclude_lines | to_json }}
 {% endif %}
