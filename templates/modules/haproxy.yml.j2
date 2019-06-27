@@ -9,6 +9,9 @@
 {% else %}
     #var.input:
 {% endif %}
+{% if item.exclude_lines is defined %}
+    var.exclude_lines: {{ item.exclude_lines | to_json }}
+{% endif %}
 
     # Set custom paths for the log files. If left empty,
     # Filebeat will choose the paths depending on your OS.
@@ -16,4 +19,7 @@
     var.paths: {{ item.paths | to_json }}
 {% else %}
     #var.paths:
+{% endif %}
+{% if item.exclude_lines is defined %}
+    var.exclude_lines: {{ item.exclude_lines | to_json }}
 {% endif %}
