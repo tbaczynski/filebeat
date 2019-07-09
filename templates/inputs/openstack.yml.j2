@@ -4,6 +4,7 @@
   enable: {{ item.enabled | d('true') }}
   paths:
   - '/var/log/nova/*.log'
+  - '/var/lib/docker/volumes/kolla_logs/_data/nova/*.log'
   ignore_older: 1h
   fields:
     openstack.component: nova
@@ -13,6 +14,7 @@
   enable: {{ item.enabled | d('true') }}
   paths:
   - '/var/log/neutron/*.log'
+  - '/var/lib/docker/volumes/kolla_logs/_data/neutron/*.log'
   ignore_older: 1h
   fields:
     openstack.component: neutron
@@ -22,6 +24,7 @@
   enable: {{ item.enabled | d('true') }}
   paths:
   - '/var/log/glance/*.log'
+  - '/var/lib/docker/volumes/kolla_logs/_data/glance/*.log'
   ignore_older: 1h
   fields:
     openstack.component: glance
@@ -31,6 +34,7 @@
   enable: {{ item.enabled | d('true') }}
   paths:
   - '/var/log/cinder/*.log'
+  - '/var/lib/docker/volumes/kolla_logs/_data/cinder/*.log'
   ignore_older: 1h
   fields:
     openstack.component: cinder
@@ -40,8 +44,20 @@
   enable: {{ item.enabled | d('true') }}
   paths:
   - '/var/log/keystone/*.log'
+  - '/var/lib/docker/volumes/kolla_logs/_data/keystone/*.log'
   ignore_older: 1h
   fields:
     openstack.component: keystone
   fields_under_root: true
 
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/ironic/*.log'
+  - '/var/lib/docker/volumes/kolla_logs/_data/ironic/*.log'
+  - '/var/log/ironic-inspector/*.log'
+  - '/var/lib/docker/volumes/kolla_logs/_data/ironic-inspector/*.log'
+  ignore_older: 1h
+  fields:
+    openstack.component: ironic
+  fields_under_root: true
