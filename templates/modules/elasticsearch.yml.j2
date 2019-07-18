@@ -7,6 +7,10 @@
     # Filebeat will choose the paths depending on your OS.
     #var.paths:
 
+{% if item.exclude_files is defined %}
+    var.exclude_files: {{ item.exclude_files | to_json }}
+{% endif %}
+
   gc:
     #enabled: {{ item.enabled | d('true') }}
     enabled: false
