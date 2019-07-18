@@ -1,0 +1,14 @@
+---
+
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/elasticsearch/*.log'
+  exclude_files:
+  - '/var/log/elasticsearch/gc.*'
+  ignore_older: 1h
+  fields:
+    fileset.module: 'elasticsearch'
+  fields_under_root: true
+
+...
