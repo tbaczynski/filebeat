@@ -9,6 +9,10 @@
   fields:
     openstack.component: nova
   fields_under_root: true
+  multiline:
+    pattern: '^.*(ERROR).*[[:space:]]{3}.*'
+    negate: false
+    match: after
 
 - type: log
   enable: {{ item.enabled | d('true') }}
@@ -19,6 +23,10 @@
   fields:
     openstack.component: neutron
   fields_under_root: true
+  multiline:
+    pattern: '^.*(ERROR).*[[:space:]]{3}.*'
+    negate: false
+    match: after
 
 - type: log
   enable: {{ item.enabled | d('true') }}
@@ -29,6 +37,10 @@
   fields:
     openstack.component: glance
   fields_under_root: true
+  multiline:
+    pattern: '^.*(ERROR).*[[:space:]]{3}.*'
+    negate: false
+    match: after
 
 - type: log
   enable: {{ item.enabled | d('true') }}
@@ -39,6 +51,10 @@
   fields:
     openstack.component: cinder
   fields_under_root: true
+  multiline:
+    pattern: '^.*(ERROR).*[[:space:]]{3}.*'
+    negate: false
+    match: after
 
 - type: log
   enable: {{ item.enabled | d('true') }}
@@ -49,6 +65,10 @@
   fields:
     openstack.component: keystone
   fields_under_root: true
+  multiline:
+    pattern: '^.*(ERROR).*[[:space:]]{3}.*'
+    negate: false
+    match: after
 
 - type: log
   enable: {{ item.enabled | d('true') }}
@@ -61,3 +81,7 @@
   fields:
     openstack.component: ironic
   fields_under_root: true
+  multiline:
+    pattern: '^.*(ERROR).*[[:space:]]{3}.*'
+    negate: false
+    match: after
