@@ -26,3 +26,11 @@
     named.type: query
   fields_under_root: true
 
+- type: log
+  enable: {{ item.enabled | d('true') }}
+  paths:
+  - '/var/log/named/query-errors.log'
+  ignore_older: 1h
+  fields:
+    named.type: query_error
+  fields_under_root: true
