@@ -1,7 +1,6 @@
 - type: log
   enabled: {{ item.enabled | d('true') }}
   paths:
-    - /var/log/impstats
-    - /var/log/impstats_*.log
+    - /var/log/impstats/*.log
   tags: ["impstats"]
 
